@@ -36,16 +36,34 @@ const repositories = [
   },
 ];
 
-function createRepositoryCard() {
+const myTemplate = document.querySelector("[data-repo-template]");
+const dataRepoCardsContainer = document.querySelector(
+  "[data-repo-cards-container]"
+);
+
+function createRepositoryCard(repository) {
   // Implement string template HTML builder for repo card
+  const clone = myTemplate.content.cloneNode(true);
+  const elementName = clone.querySelector("[data-header]");
+  const elementDescription = clone.querySelector("[data-description]");
+  const elementStars = clone.querySelector("[data-stars]");
+  const elementForks = clone.querySelector("[data-forks]");
+  elementName.textContent = repository.full_name;
+  elementDescription.textContent = repository.description;
+  elementStars.textContent += repository.stargazers_count;
+  elementForks.textContent += repository.forks;
+  dataRepoCardsContainer.appendChild(clone);
 }
 
-function renderRepositories() {
+function renderRepositories(repos) {
   // Implement DOM manipulation function to add list items in the repo list
+  repos.map(function (repository) {
+    createRepositoryCard(repository);
+  });
 }
 
 // Comment this out when you start working on the search functionality
-renderRepositories();
+//renderRepositories();
 
 function handleSearch() {
   // Implement form submit event handler
@@ -53,7 +71,16 @@ function handleSearch() {
 
 async function fetchRepositories() {
   // Pass parameter to the search endpoint
-  return fetch("https://api.github.com/legacy/repos/search/<placeholder>")
+  return fetch("https://api.github.com/search/repositories?q=stars:>10000", {
+    headers: {
+      Authorization: "Bearer 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",
+    },
+  })
     .then((res) => res.json())
-    .then((res) => res.repositories);
+    .then((res) => {
+      var repositories = res.items;
+      renderRepositories(repositories);
+    });
 }
+
+fetchRepositories();

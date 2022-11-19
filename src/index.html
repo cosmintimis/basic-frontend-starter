@@ -6,24 +6,42 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>JSHeroes Bootcamp</title>
     <link rel="stylesheet" href="style.css" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Ubuntu:wght@400;500&display=swap"
+      rel="stylesheet"
+    />
     <script src='script.js' defer></script>
   </head>
   <body>
     <header>
-      <h1>GitHub Explorer</h1>
+        <div class="container">
+          <h1>Welcome to the JSHeroes Bootcamp</h1>
+        </div>
+        <img class = "icon" src="assets/js-heroes-bear.png">
     </header>
-    <main>
-      <ul class="repo-cards">
+    <main class="container">
+      <section>
+        <form class="main-search">
+        <input class="search-input" type="search" placeholder="Searching...">
+        <button class="search-button" type="submit">Search</button>
+        </form>
+      </section>
+      <section>
+        <ul class="repo-cards" data-repo-cards-container>
         <!--       Card example     -->
-        <li>
-          <span>test header</span>
-          <span>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ab earum perferendis provident? Architecto aut corporis cupiditate, id ipsum minus nihil nisi non nostrum, obcaecati omnis, perferendis provident qui rerum tempora!</span>
-          <section>
-            <p>Stars: 25</p>
-            <p>Forks: 44</p>
-          </section>
-        </li>
-      </ul>
+         <template data-repo-template>
+         <li class="repo-card">
+            <h2 data-header></h2>
+            <span data-description></span>
+            <section>
+              <p data-stars>Stars: </p>
+              <p data-forks>Forks: </p>
+            </section>
+          </li>
+      </template>
+        </ul>
+      </section>
+     
     </main>
   </body>
 </html>
